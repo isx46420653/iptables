@@ -2,9 +2,10 @@
 # ASIX M11-Seguretat i alta disponibilitat
 # @edt 2015
 # ==============================================
-# Exemples de regles DROP --> Host (192.168.1.180)
-# Paquets: xinetd, telnet, telnet-server, httpd, uw-imap
-# Fets amb xinetd: echo-stream(7), daytime-stream(13),
+# Exemples de regles OUTPUT
+# host i19 (192.168.2.49)
+# paquets: xinetd, telnet, telnet-server, httpd, uw-imap
+# fets amb xinetd: echo-stream(7), daytime-stream(13),
 # daytime2(82), ipop3(110), imap(143), https2(81)
 # stand-alone: httpd, xinetd
 # ===============================================
@@ -21,8 +22,6 @@ iptables -t nat -F
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
-#iptables -t nat -P PREROUTING ACCEPT
-#iptables -t nat -P POSTROUTING ACCEPT
 
 # Permetre totes les pròpies connexions via localhost
 iptables -A INPUT   -i lo -j ACCEPT
@@ -33,12 +32,16 @@ iptables -A INPUT   -s 192.168.1.180   -j ACCEPT
 iptables -A OUTPUT  -d 192.168.1.180  -j ACCEPT
 # -----------------------------------------------------------
 # Obrir tràfic DNS
-/sbin/iptables -A INPUT   -s 192.168.0.10   -p udp  --sport 53 -j ACCEPT
-/sbin/iptables -A OUTPUT  -d 192.168.0.10   -p udp  --dport 53 -j ACCEPT
-/sbin/iptables -A INPUT   -s 10.1.1.200     -p udp  --sport 53 -j ACCEPT
-/sbin/iptables -A OUTPUT  -d 10.1.1.200     -p udp  --dport 53 -j ACCEPT
-/sbin/iptables -A INPUT   -s 193.152.63.197 -p udp  --sport 53 -j ACCEPT
-/sbin/iptables -A OUTPUT  -d 193.152.63.197 -p udp  --dport 53 -j ACCEPT
+
+# consulta dns primari
+iptables -A INPUT -s 80.58.61.250 -p udp -m udp --sport 53 -j ACCEPT
+iptables -A OUTPUT -d 80.58.61.250 -p udp -m udp --dport 53 -j ACCEPT
+# consulta dns secundari
+iptables -A INPUT -s 80.58.61.254 -p udp -m udp --sport 53 -j ACCEPT
+iptables -A OUTPUT -d 80.58.61.254 -p udp -m udp --dport 53 -j ACCEPT
+# consulta ntp
+iptables -A INPUT -p udp -m udp --dport 123 -j ACCEPT
+iptables -A OUTPUT -p udp -m udp --sport 123 -j ACCEPT
 #
 # obrir dhclient (67 server-port, 68 client-port)
 iptables -A INPUT   -p udp --dport 68   -j ACCEPT
