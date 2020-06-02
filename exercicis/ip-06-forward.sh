@@ -47,7 +47,7 @@ iptables -A FORWARD -s 172.20.0.0/16 -p tcp -o enp4s0f1 -j DROP
 iptables -A FORWARD -d 172.20.0.0/16 -p tcp -i enp4s0f1 -j DROP
 
 # Permetre que la xarxa 20 pugui accedir al port 2013 de qualsevol xarxa excepte hisx2 (192.168.2.0/24)
-iptables -A FORWARD -s 172.20.0.0/16 -d 192.168.1.0/24 -p tcp --dport 2013 -m state --state ESTABLISHED,RELATED -j REJECT
+iptables -A FORWARD -s 172.20.0.0/16 -d 192.168.2.0/24 -p tcp --dport 2013 -m state --state ESTABLISHED,RELATED -j REJECT
 iptables -A FORWARD -s 172.20.0.0/16 -p tcp --dport 2013 -j ACCEPT
 
 # Evitar que sigui falsa l'IP d'origen: SPOOFING
@@ -55,3 +55,5 @@ iptables -A FORWARD ! -s 172.20.0.0/16 -i enp4s0f1 -j REJECT
 
 # Mostrem
 iptables -L
+
+# Pau Martín

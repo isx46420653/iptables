@@ -21,3 +21,5 @@ iptables -A OUTPUT -d 192.168.1.180 -j ACCEPT
 
 # Mostrem
 iptables -L
+
+# Pau Martín

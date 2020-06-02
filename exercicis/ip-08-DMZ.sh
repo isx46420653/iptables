@@ -27,15 +27,15 @@ iptables -t nat -A POSTROUTING -s 172.30.0.0/16 -o enp4s0f1 -j MASQUERADE
 iptables -t nat -A POSTROUTING -s 172.40.0.0/16 -o enp4s0f1 -j MASQUERADE
 
 # Permetre l'accés de la xarxa 20 als ports 22 i 13
-iptables -A FORWARD -s 172.20.0.0/16  -p tcp --dport 22  -j ACCEPT
-iptables -A FORWARD -s 172.20.0.0/16  -p tcp --dport 13  -j ACCEPT
-iptables -A FORWARD -s 172.20.0.0/16  -p tcp  -j REJECT
+iptables -A FORWARD -s 172.20.0.0/16 -p tcp --dport 22 -j ACCEPT
+iptables -A FORWARD -s 172.20.0.0/16 -p tcp --dport 13 -j ACCEPT
+iptables -A FORWARD -s 172.20.0.0/16 -p tcp -j REJECT
 
 # Permetre l'accés exterior només a servidors web, ssh o daytime al port 2013
-iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp --dport 22  -j ACCEPT
-iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp --dport 2013  -j ACCEPT
+iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp --dport 22 -j ACCEPT
+iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp --dport 2013 -j ACCEPT
 iptables -A FORWARD -d 172.20.0.0/16 -o enp4s0f1 -p tcp --sport 80 -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp --dport 80  -j ACCEPT
+iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp --dport 80 -j ACCEPT
 iptables -A FORWARD -s 172.20.0.0/16 -o enp4s0f1 -p tcp -j DROP
 
 # Permetre a la xarxa 20 accedir al servidor web de la DMZ
@@ -58,7 +58,9 @@ iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 4004 -j DNAT --to 172.3
 iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 4000 -s i26 -j DNAT --to 192.168.1.180:22
 
 # Denegar l'accés dels hosts de la xarxa 30 a la xarxa 20 (DROP)
-iptables -A FORWARD -s 172.30.0.0/16 -d 172.20.0.0/16 -p tcp  -j DROP
+iptables -A FORWARD -s 172.30.0.0/16 -d 172.20.0.0/16 -p tcp -j DROP
 
 # Mostrem
 iptables -L
+
+# Pau Martín

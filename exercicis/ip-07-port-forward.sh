@@ -31,13 +31,15 @@ iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 5002 -j DNAT --to 172.2
 iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 5003 -j DNAT --to 172.20.0.1:13
 
 # Denegar l'accés al port 13 per a que el forward dels ports 5001 i 5002 no funcionin
-iptables -A FORWARD  -p tcp --dport 13 -j REJECT
+iptables -A FORWARD -p tcp --dport 13 -j REJECT
 
 # Esborrem la regla forward
 iptables -D FORWARD 1
 
 # Denegar l'accés al port 13, ara el port 5003 deixa de funcionar.
-iptables -A INPUT  -p tcp --dport 13 -j REJECT
+iptables -A INPUT -p tcp --dport 13 -j REJECT
 
 # Mostrem
 iptables -L
+
+# Pau Martín

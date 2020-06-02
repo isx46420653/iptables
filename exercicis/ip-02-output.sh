@@ -54,3 +54,5 @@ iptables -A OUTPUT -d 192.168.2.0/24 -p tcp --dport 22 -j DROP
 
 # Mostrem
 iptables -L
+
+# Pau Martín

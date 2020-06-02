@@ -34,5 +34,7 @@ iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 543 -j DNAT --to 172.40
 iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 749 -j DNAT --to 172.40.0.2:749
 
 # Permetre l'accés des de l'exterior al recurs samba del servidor de la DMZ
-iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 139 -j DNAT --to 172.40.0.3:139
-iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 445 -j DNAT --to 172.40.0.3:445
+iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 139 -j DNAT --to 172.40.0.4:139
+iptables -t nat -A PREROUTING -i enp4s0f1 -p tcp --dport 445 -j DNAT --to 172.40.0.4:445
+
+# Pau Martín

@@ -32,4 +32,6 @@ iptables -A INPUT -p icmp --icmp-type 8 -j DROP
 iptables -A INPUT -p icmp --icmp-type 0 -j DROP
 
 # Mostrem
-iptables -L 
+iptables -L
+
+# Pau Martín

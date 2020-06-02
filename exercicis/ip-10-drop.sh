@@ -106,3 +106,5 @@ iptables -A OUTPUT -p udp --sport 69 -j ACCEPT
 
 # Mostrem
 iptables -L
+
+# Pau Martín

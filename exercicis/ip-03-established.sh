@@ -31,3 +31,5 @@ iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
 
 # Mostrem
 iptables -L
+
+# Pau Martín

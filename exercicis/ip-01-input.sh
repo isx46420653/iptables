@@ -39,4 +39,6 @@ iptables -A INPUT -s 192.168.2.0/24 -p tcp --dport 5080 -j ACCEPT
 iptables -A INPUT -p tcp --dport 5080 -j DROP
 
 # Mostrem
-iptables -L 
+iptables -L
+
+# Pau Martín
